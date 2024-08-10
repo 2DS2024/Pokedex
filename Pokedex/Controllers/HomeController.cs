@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Pokedex.Data;
 using Pokedex.Models;
 
 namespace Pokedex.Controllers;
@@ -7,16 +9,21 @@ namespace Pokedex.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly AppDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        ViewData["Nome"] = "José Antonio Gallo Junior";
-        return View();
+        var pokemons = _context.Pokemons
+            .Include(p => p.Tipos)
+            .ThenInclude(t => t.Tipo)
+            .ToList();
+        return View(pokemons);
     }
 
     public IActionResult Privacy()
