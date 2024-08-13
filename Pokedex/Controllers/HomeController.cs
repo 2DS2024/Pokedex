@@ -9,21 +9,15 @@ namespace Pokedex.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly AppDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext context)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _context = context;
     }
 
     public IActionResult Index()
     {
-        var pokemons = _context.Pokemons
-            .Include(p => p.Tipos)
-            .ThenInclude(t => t.Tipo)
-            .ToList();
-        return View(pokemons);
+        return View();
     }
 
     public IActionResult Privacy()
