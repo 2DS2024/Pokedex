@@ -36,7 +36,7 @@
             <div class="col @string.Join(' ', pokemon.Tipos.Select(t => t.Tipo.Nome))">
                 <a asp-action="Details" asp-route-id="@pokemon.Numero" class="text-decoration-none">
                     <div class="card" style="background-color: @BackgroundColor(pokemon.Tipos.ToArray()[0].Tipo.Cor)">
-                        <img src="@pokemon.Imagem" class="card-img-top" alt="@pokemon.Nome" />
+                        <img src="@pokemon.Animacao" class="card-img-top" alt="@pokemon.Nome" />
                         <div class="card-body">
                             <h5 class="card-text mb-1 text-white">Nº @pokemon.Numero.ToString("000")</h5>
                             <h3 class="card-title text-dark">@pokemon.Nome</h3>
